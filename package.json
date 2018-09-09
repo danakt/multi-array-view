@@ -28,5 +28,12 @@
     "@types/node": "^10.9.4",
     "typescript": "^3.0.3",
     "jest": "^23.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danakt/multi-array-view.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danakt/multi-array-view/issues"
   }
 }
