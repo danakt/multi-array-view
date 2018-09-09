@@ -8,9 +8,11 @@ var MultiArrayView = /** @class */ (function () {
      * @param shape List of dimensions lengths
      * @param Constructor The constructor of the array
      * @param [offset=0] The offset to start the view
+     * @param [order] Method of data ordering
      */
-    function MultiArrayView(array, shape, offset) {
+    function MultiArrayView(array, shape, offset, order) {
         if (offset === void 0) { offset = 0; }
+        if (order === void 0) { order = MultiArrayView.C_ORDER; }
         // Checking creating constructor
         if (!(this instanceof MultiArrayView)) {
             throw new TypeError("Constructor MultiArrayView requires 'new'");
@@ -34,7 +36,14 @@ var MultiArrayView = /** @class */ (function () {
             if (i === 0) {
                 break;
             }
-            strides.unshift(strides[0] * shape[i]);
+            if (order === MultiArrayView.F_ORDER) {
+                // Row-major order
+                strides.push(strides[0] * shape[i]);
+            }
+            else {
+                // Column-major order (default)
+                strides.unshift(strides[0] * shape[i]);
+            }
         }
         // Since accessing an item with the help of a rest parameter creates an
         // additional array, this method is too slow. For getting and setting items
@@ -50,10 +59,12 @@ var MultiArrayView = /** @class */ (function () {
      * @param shape List of dimensions lengths
      * @param Constructor The constructor of the array or array-like object
      * @param [offset=0] The offset to start the view
+     * @param [order] Method of data ordering
      */
-    MultiArrayView.create = function (shape, Constructor, offset) {
+    MultiArrayView.create = function (shape, Constructor, offset, order) {
         if (Constructor === void 0) { Constructor = Array; }
         if (offset === void 0) { offset = 0; }
+        if (order === void 0) { order = MultiArrayView.C_ORDER; }
         // Validating arguments
         if (shape == null ||
             shape.length === 0 ||
@@ -64,16 +75,18 @@ var MultiArrayView = /** @class */ (function () {
         // Calculation length of the source array
         var length = shape.reduce(function (prev, next) { return prev * next; });
         var array = new Constructor(offset + length);
-        return new MultiArrayView(array, shape, offset);
+        return new MultiArrayView(array, shape, offset, order);
     };
     /**
      * Creates the MultiArrayView wrapper around an array or array-like object
      * @param array Array to apply to the MultiArrayView
      * @param shape List of dimensions lengths
      * @param [offset=0] The offset to start the view
+     * @param [order] Method of data ordering
      */
-    MultiArrayView.wrap = function (array, shape, offset) {
+    MultiArrayView.wrap = function (array, shape, offset, order) {
         if (offset === void 0) { offset = 0; }
+        if (order === void 0) { order = MultiArrayView.C_ORDER; }
         var calculatedLength = shape.reduce(function (a, b) { return a * b; });
         // Checking array length
         if (array.length < calculatedLength + offset) {
@@ -81,8 +94,16 @@ var MultiArrayView = /** @class */ (function () {
                 'of the array and the offset is greater than the production of ' +
                 'the shape.');
         }
-        return new MultiArrayView(array, shape, offset);
+        return new MultiArrayView(array, shape, offset, order);
     };
+    /**
+     * Row-major order constant
+     */
+    MultiArrayView.C_ORDER = 0;
+    /**
+     * Column-major order constant
+     */
+    MultiArrayView.F_ORDER = 1;
     /**
      * Typescript importing fallback
      */

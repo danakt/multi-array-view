@@ -130,3 +130,31 @@ test('should create multiarrayView with offset', () => {
 
   expect(multiArrayView.array.length).toBe(mockLength + offset)
 })
+
+test('test ordering methods', () => {
+  const sourceData = [[0, 8, 4], [5, 3, 5], [2, 3, 6]]
+
+  const shape = [3, 3]
+
+  const cOrderedArray = MultiArrayView.create(shape, Uint8Array)
+  const fOrderedArray = MultiArrayView.create(
+    shape,
+    Uint8Array,
+    0,
+    MultiArrayView.F_ORDER
+  )
+
+  for (let x = 0; x < shape[0]; x++) {
+    for (let y = 0; y < shape[1]; y++) {
+      cOrderedArray.set(sourceData[x][y], x, y)
+      fOrderedArray.set(sourceData[x][y], x, y)
+    }
+  }
+
+  expect(cOrderedArray.array).toEqual(
+    new Uint8Array([0, 8, 4, 5, 3, 5, 2, 3, 6])
+  )
+  expect(fOrderedArray.array).toEqual(
+    new Uint8Array([0, 5, 2, 8, 3, 3, 4, 5, 6])
+  )
+})

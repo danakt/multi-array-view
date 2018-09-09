@@ -11,6 +11,16 @@ interface ArrayLikeConstructor<T> {
  */
 class MultiArrayView<T> {
   /**
+   * Row-major order constant
+   */
+  public static C_ORDER = 0
+
+  /**
+   * Column-major order constant
+   */
+  public static F_ORDER = 1
+
+  /**
    * Typescript importing fallback
    */
   public static default = MultiArrayView
@@ -19,11 +29,13 @@ class MultiArrayView<T> {
    * @param shape List of dimensions lengths
    * @param Constructor The constructor of the array or array-like object
    * @param [offset=0] The offset to start the view
+   * @param [order] Method of data ordering
    */
   public static create<T>(
     shape: number[],
     Constructor: ArrayLikeConstructor<T> = Array,
-    offset: number = 0
+    offset: number = 0,
+    order = MultiArrayView.C_ORDER
   ) {
     // Validating arguments
     if (
@@ -39,7 +51,7 @@ class MultiArrayView<T> {
     const length = shape.reduce((prev, next) => prev * next)
     const array: ArrayLike<T> = new Constructor(offset + length)
 
-    return new MultiArrayView<T>(array, shape, offset)
+    return new MultiArrayView<T>(array, shape, offset, order)
   }
 
   /**
@@ -47,11 +59,13 @@ class MultiArrayView<T> {
    * @param array Array to apply to the MultiArrayView
    * @param shape List of dimensions lengths
    * @param [offset=0] The offset to start the view
+   * @param [order] Method of data ordering
    */
   public static wrap<T>(
     array: ArrayLike<T>,
     shape: number[],
-    offset: number = 0
+    offset: number = 0,
+    order = MultiArrayView.C_ORDER
   ) {
     const calculatedLength: number = shape.reduce((a, b) => a * b)
 
@@ -64,7 +78,7 @@ class MultiArrayView<T> {
       )
     }
 
-    return new MultiArrayView<T>(array, shape, offset)
+    return new MultiArrayView<T>(array, shape, offset, order)
   }
 
   /**
@@ -104,8 +118,14 @@ class MultiArrayView<T> {
    * @param shape List of dimensions lengths
    * @param Constructor The constructor of the array
    * @param [offset=0] The offset to start the view
+   * @param [order] Method of data ordering
    */
-  public constructor(array: ArrayLike<T>, shape: number[], offset: number = 0) {
+  public constructor(
+    array: ArrayLike<T>,
+    shape: number[],
+    offset: number = 0,
+    order = MultiArrayView.C_ORDER
+  ) {
     // Checking creating constructor
     if (!(this instanceof MultiArrayView)) {
       throw new TypeError("Constructor MultiArrayView requires 'new'")
@@ -136,7 +156,13 @@ class MultiArrayView<T> {
         break
       }
 
-      strides.unshift(strides[0] * shape[i])
+      if (order === MultiArrayView.F_ORDER) {
+        // Row-major order
+        strides.push(strides[0] * shape[i])
+      } else {
+        // Column-major order (default)
+        strides.unshift(strides[0] * shape[i])
+      }
     }
 
     // Since accessing an item with the help of a rest parameter creates an
