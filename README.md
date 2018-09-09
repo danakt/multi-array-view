@@ -65,7 +65,7 @@ import MultiArrayView from 'multi-array-view'
 
 ### Static methods
 
-#### `MultiArrayView.create(shape[, constructor, offset])`
+#### `MultiArrayView.create(shape[, constructor, offset, order])`
 Creates a new array using the specified constructor. If the constructor is not specified, the `Array` is used as the constructor. Returns instance of MultiArrayView class.
 
 - `shape`  
@@ -78,6 +78,12 @@ Defaults to `Array`.
 - `offset` _Optional_   
 The starting offset of the array view.  
 Defaults to 0.
+
+- `order` _Optional_  
+Ordering method for storing data. See [ordering methods](#ordering_methods) section for more information.  
+Available values:
+  * `MultiArray.C_ORDER` — Row-major order (C-style)  
+  * `MultiArray.F_ORDER` — Column-major (Fortran-style)  
 
 A minimal example
 ```js
@@ -102,7 +108,7 @@ console.log(multiArray.array)
 // ]
 ```
 
-#### `MultiArrayView.wrap(array, shape[, offset])`
+#### `MultiArrayView.wrap(array, shape[, offset, order])`
 Wraps the readymade strided array in the MultiArrayView class for multi-dimensional viewing. Returns instance of MultiArrayView class.
 
 - `array`  
@@ -114,6 +120,12 @@ List of array dimensions.
 - `offset` _Optional_   
 The starting offset of the array view.  
 Defaults to 0.
+
+- `order` _Optional_  
+Ordering method for storing data. See [ordering methods](#ordering_methods) section for more information.  
+Available values:
+  * `MultiArray.C_ORDER` — Row-major order (C-style)  
+  * `MultiArray.F_ORDER` — Column-major (Fortran-style)  
 
 Simple example
 ```js
@@ -169,3 +181,50 @@ Shape of the array that was putted when the MultiArrayView instance was created.
 
 #### `.length`
 Length of the source array computed by the shape.
+
+## Ordering methods
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Row_and_column_major_order.svg/512px-Row_and_column_major_order.svg.png" width="200" align="right" alt="Image from wikipedia">](https://en.wikipedia.org/wiki/Row-_and_column-major_order)
+
+There are two values for the sorting method:
+  * `MultiArray.C_ORDER` — Row-major order (C-style)  
+  * `MultiArray.F_ORDER` — Column-major (Fortran-style)  
+  
+They differ in the way of storing data in the source array.
+
+
+Simple 3x3 matrix:  
+```js
+const matrix3x3 = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]
+```
+
+And flat representation of the matrix above after applying different-ordered arrays:
+```js
+// Default row-major ordered array
+const cOrdered = MultiArrayView.create([3, 3], Uint8Array, 0, MultiArrayView.C_ORDER)
+
+// Column-major ordered array
+const fOrdered = MultiArrayView.create([3, 3], Uint8Array, 0, MultiArrayView.F_ORDER)
+
+// Applying matrix to arrays
+for (let x = 0; x < matrix3x3.length; x++) {
+  for (let y = 0; y < matrix3x3[x].length; y++) {
+    const value = matrix3x3[x][y]
+    
+    cOrdered.set(value, x, y)
+    fOrdered.set(value, x, y)
+  }
+}
+
+// Row-major source array representation
+console.log(cOrdered.array)
+// [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+// Column-major source array representation
+console.log(fOrdered.array)
+// [1, 4, 7, 2, 5, 8, 3, 6, 9]
+```
