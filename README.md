@@ -80,7 +80,7 @@ The starting offset of the array view.
 Defaults to 0.
 
 - `order` _Optional_  
-Ordering method for storing data. See [ordering methods](#ordering_methods) section for more information.  
+Ordering method for storing data. See [ordering methods](#ordering-methods) section for more information.  
 Available values:
   * `MultiArray.C_ORDER` — Row-major order (C-style)  
   * `MultiArray.F_ORDER` — Column-major (Fortran-style)  
@@ -122,7 +122,7 @@ The starting offset of the array view.
 Defaults to 0.
 
 - `order` _Optional_  
-Ordering method for storing data. See [ordering methods](#ordering_methods) section for more information.  
+Ordering method for storing data. See [ordering methods](#ordering-methods) section for more information.  
 Available values:
   * `MultiArray.C_ORDER` — Row-major order (C-style)  
   * `MultiArray.F_ORDER` — Column-major (Fortran-style)  
