@@ -1,6 +1,6 @@
 # MultiArrayView [![NPM](https://img.shields.io/npm/v/multi-array-view.svg?style=flat-square&maxAge=3600)](https://www.npmjs.com/package/multi-array-view) [![Build Status](https://img.shields.io/travis/danakt/multi-array-view.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/danakt/multi-array-view)
 
-<img align="right" width="150" src="https://cdn.rawgit.com/danakt/multi-array-view/master/octaplex.svg" title="Octaplex">
+<img align="right" width="150" src="https://cdn.rawgit.com/danakt/multi-array-view/74507769/octaplex.svg" title="Octaplex">
 
 A small JavaScript library for efficient work with multidimensional arrays.
 
