@@ -1,0 +1,32 @@
+{
+  "name": "multi-array-view",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "jest"
+  },
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "typings": "./dist/index.d.ts",
+  "author": "Danakt Frost <danakt@protonmail.com>",
+  "jest": {
+    "collectCoverage": true
+  },
+  "keywords": [
+    "array",
+    "stride",
+    "strided",
+    "strided array",
+    "multidimensional",
+    "multiarray",
+    "n-dimension",
+    "matrix",
+    "dimension",
+    "nested"
+  ],
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.4",
+    "typescript": "^3.0.3",
+    "jest": "^23.5.0"
+  }
+}

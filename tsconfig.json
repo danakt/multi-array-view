@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "es7"],
+    "strict": true,
+    "declaration": true
+  },
+  "files": ["index.ts"]
+}
