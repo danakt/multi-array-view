@@ -2,7 +2,7 @@
   "name": "multi-array-view",
   "version": "0.0.1",
   "scripts": {
-    "test": "jest"
+    "test": "node --zero-fill-buffers node_modules/.bin/jest"
   },
   "main": "./dist/index.js",
   "license": "MIT",
