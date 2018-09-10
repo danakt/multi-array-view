@@ -100,7 +100,7 @@ const multiArray = MultiArrayView.create([4, 4], Uint8Array, 2)
 
 console.log(multiArray.array)
 // Uint8Array(18) [
-//   0, 0,          <— 2 offseted items
+//   0, 0,          <— 2 offsetted items
 //   0, 0, 0, 0,    <— matrix start
 //   0, 0, 0, 0,
 //   0, 0, 0, 0,
