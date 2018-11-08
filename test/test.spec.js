@@ -1,4 +1,4 @@
-const MultiArrayView = require('.')
+const MultiArrayView = require('../')
 
 const flattenDeep = arr =>
   arr.reduce(
