@@ -1,6 +1,6 @@
 {
   "name": "multi-array-view",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "scripts": {
     "test": "node --zero-fill-buffers node_modules/.bin/jest"
   },
