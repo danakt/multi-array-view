@@ -1,6 +1,6 @@
 {
   "name": "multi-array-view",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "scripts": {
     "test": "jest",
     "build": "tsc",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "typings": "./dist/index.d.ts",
   "author": "Danakt Frost <danakt@protonmail.com>",
-  "description": "Small JavaScript library for efficient work with multidimensional arrays",
+  "description": "A small JavaScript library for efficient work with multidimensional arrays",
   "jest": {
     "collectCoverage": true
   },
