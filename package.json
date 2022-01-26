@@ -2,13 +2,15 @@
   "name": "multi-array-view",
   "version": "0.1.5",
   "scripts": {
-    "test": "node --zero-fill-buffers node_modules/.bin/jest"
+    "test": "jest",
+    "build": "tsc",
+    "prepublishOnly": "tsc"
   },
   "main": "./dist/index.js",
   "license": "MIT",
   "typings": "./dist/index.d.ts",
   "author": "Danakt Frost <danakt@protonmail.com>",
-  "description": "A small JavaScript library for efficient work with multidimensional arrays",
+  "description": "Small JavaScript library for efficient work with multidimensional arrays",
   "jest": {
     "collectCoverage": true
   },
@@ -25,10 +27,10 @@
     "nested"
   ],
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/node": "^10.9.4",
-    "jest": "^23.5.0",
-    "typescript": "^3.0.3"
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.12",
+    "jest": "^27.4.7",
+    "typescript": "^4.5.5"
   },
   "repository": {
     "type": "git",
