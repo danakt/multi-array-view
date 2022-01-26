@@ -2,7 +2,7 @@
   "name": "multi-array-view",
   "version": "0.1.7",
   "scripts": {
-    "test": "jest",
+    "test": "tsc && jest",
     "build": "tsc",
     "prepublishOnly": "tsc"
   },
